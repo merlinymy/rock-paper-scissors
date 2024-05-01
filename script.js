@@ -19,7 +19,7 @@ function getHumanChoice() {
     }
 }
 
-function playRound(humanChoice, ComputerChoice) {
+function playRound(humanChoice, computerChoice) {
     // 0 is rock, 1 is paper, 2 is scissor
     // 1 > 0, 2 > 1, 0 > 2
     // takes in human and computer choice
@@ -53,6 +53,17 @@ function playRound(humanChoice, ComputerChoice) {
     }
 }
 
+function playGame() {
+    
+    let games = parseInt(prompt("Enter how many games you want to play", ));
+    for (let i = 1; i <= games; i++) {
+        const humanChoice = getHumanChoice();
+        const computerChoice = getComputerChoice();
+        console.log(`Round ${i}`)
+        playRound(humanChoice, computerChoice);
+    }
+}
+
 function convertToNumber(humanChoice) {
     if (humanChoice === "rock") {
         return 0;
@@ -75,7 +86,5 @@ function convertNumberToString(choice) {
 
 let humanScore = 0;
 let computerScore = 0;
-const humanChoice = getHumanChoice();
-const computerChoice = getComputerChoice();
-console.log(computerChoice);
-playRound(humanChoice, computerChoice);
+
+playGame();
