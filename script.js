@@ -5,4 +5,17 @@ function getComputerChoice() {
     return choice;
 }
 
+function getHumanChoice() {
+    let humanChoice = prompt("Enter rock, paper or scissor to play: ", ).toLowerCase();
+    while (true) {
+        if (humanChoice === "rock" ||
+        humanChoice === "paper" ||
+        humanChoice === "scissor") {
+            return humanChoice;
+        } else {
+            humanChoice = prompt("Invalid entry, please enter rock, paper or scissor to play: ", ).toLowerCase();
+        }
+    }
+}
 console.log(getComputerChoice());
+console.log(getHumanChoice());
