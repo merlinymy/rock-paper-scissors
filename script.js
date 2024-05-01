@@ -30,24 +30,24 @@ function playRound(humanChoice, ComputerChoice) {
     if (humanChoice === 0 && computerChoice === 2) {
         // Add score to human
         humanScore++;
-        console.log("human wins");
+        console.log("You chose rock and computer chose scissor. You win");
         console.log(`human score is ${humanScore}, computer score is ${computerScore}`);
     } else if (humanChoice === 2 && computerChoice === 0) {
         computerScore++;
-        console.log("computer wins");
+        console.log("You chose scissor and computer chose rock. Computer win");
         console.log(`human score is ${humanScore}, computer score is ${computerScore}`);
         // ELSE IF same choice, nothing
     } else if (humanChoice === computerChoice) {
-        console.log("it's a tie");
+        console.log(`computer chose ${convertNumberToString(computerChoice)}. "it's a tie"`);
         console.log(`human score is ${humanScore}, computer score is ${computerScore}`);
     }  else { // ELSE compare the value as usual
         if (humanScore > computerScore) {
             humanScore++;
-            console.log("human wins");
+            console.log(`computer chose ${convertNumberToString(computerChoice)}. You win`);
             console.log(`human score is ${humanScore}, computer score is ${computerScore}`);
         } else {
             computerScore++;
-            console.log("computer wins");
+            console.log(`computer chose ${convertNumberToString(computerChoice)}. Computer wins`);
             console.log(`human score is ${humanScore}, computer score is ${computerScore}`);
         }
     }
@@ -60,6 +60,16 @@ function convertToNumber(humanChoice) {
         return 1;
     } else {
         return 2;
+    }
+}
+
+function convertNumberToString(choice) {
+    if (choice === 0) {
+        return "rock";
+    } else if (choice === 1) {
+        return "paper";
+    } else {
+        return "scissor";
     }
 }
 
