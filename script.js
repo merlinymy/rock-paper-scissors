@@ -62,6 +62,14 @@ function playGame() {
         console.log(`Round ${i}`)
         playRound(humanChoice, computerChoice);
     }
+    let winner = "";
+    if (computerScore > humanScore) {
+        console.log(`Computer scores ${computerScore}, You score ${humanScore}, Computer wins`);
+    } else if (computerScore < humanScore) {
+        console.log(`Computer scores ${computerScore}, You score ${humanScore}, you win`);
+    } else {
+        console.log(`Computer scores ${computerScore}, You score ${humanScore}, It's a tie`);
+    }
 }
 
 function convertToNumber(humanChoice) {
