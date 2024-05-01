@@ -1,6 +1,7 @@
 function getComputerChoice() {
     // Get a random choice from three possibilities (0, 1, 2)
     const choice = Math.floor(Math.random() * 3);
+    console.log(choice);
     // return the random choice
     return choice;
 }
@@ -18,5 +19,53 @@ function getHumanChoice() {
     }
 }
 
+function playRound(humanChoice, ComputerChoice) {
+    // 0 is rock, 1 is paper, 2 is scissor
+    // 1 > 0, 2 > 1, 0 > 2
+    // takes in human and computer choice
+    // CONVERT humanChoice to a number
+    humanChoice = convertToNumber(humanChoice);
+    // COMPARE the two
+    // IF one is 0 and the other is 2, 0 wins
+    if (humanChoice === 0 && computerChoice === 2) {
+        // Add score to human
+        humanScore++;
+        console.log("human wins");
+        console.log(`human score is ${humanScore}, computer score is ${computerScore}`);
+    } else if (humanChoice === 2 && computerChoice === 0) {
+        computerScore++;
+        console.log("computer wins");
+        console.log(`human score is ${humanScore}, computer score is ${computerScore}`);
+        // ELSE IF same choice, nothing
+    } else if (humanChoice === computerChoice) {
+        console.log("it's a tie");
+        console.log(`human score is ${humanScore}, computer score is ${computerScore}`);
+    }  else { // ELSE compare the value as usual
+        if (humanScore > computerScore) {
+            humanScore++;
+            console.log("human wins");
+            console.log(`human score is ${humanScore}, computer score is ${computerScore}`);
+        } else {
+            computerScore++;
+            console.log("computer wins");
+            console.log(`human score is ${humanScore}, computer score is ${computerScore}`);
+        }
+    }
+}
+
+function convertToNumber(humanChoice) {
+    if (humanChoice === "rock") {
+        return 0;
+    } else if (humanChoice === "paper") {
+        return 1;
+    } else {
+        return 2;
+    }
+}
+
 let humanScore = 0;
-let ComputerScore = 0;
+let computerScore = 0;
+const humanChoice = getHumanChoice();
+const computerChoice = getComputerChoice();
+console.log(computerChoice);
+playRound(humanChoice, computerChoice);
