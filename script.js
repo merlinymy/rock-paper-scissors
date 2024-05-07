@@ -112,17 +112,17 @@ const sciButton = document.querySelector(".sci-button");
 const buttonGroup = document.querySelector(".rock-paper-sci");
 buttonGroup.addEventListener("click", (event) => {
     let target = event.target;
-    console.dir(target);
+    console.log(target.className);
     let computerChoice = getComputerChoice();
     if (target.tagName === "IMG") {
         switch(target.className) {
-            case "rock-button":
+            case "rock-button static":
                 playRound("rock", computerChoice);
                 break;
-            case "paper-button":
+            case "paper-button static":
                 playRound("paper", computerChoice);
                 break;
-            case "sci-button":
+            case "sci-button static":
                 playRound("scissor", computerChoice);
                 break;
         }
