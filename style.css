@@ -6,15 +6,21 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: rock-slayer;
+}
+
+body {
+    background-color: burlywood;
+    padding: 0px 150px;
 }
 
 p {
-    font-family: rock-slayer;
     font-size: 40px;
 }
 
 .wrapper {
-    margin-top: 75px;
+    background-color:bisque;
+    padding-top: 30px;
 }
 
 .h1-div {
@@ -24,8 +30,7 @@ p {
 }
 h1 {
     flex: 0 1 auto;
-    font-family: rock-slayer;
-    font-size: 150px;
+    font-size: 100px;
 }
 
 .rock-paper-sci {
@@ -50,6 +55,7 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 30px;
+    margin: 24px;
 }
 
 .img-container {
@@ -60,10 +66,22 @@ h1 {
 
 .static {
     position: absolute;
-    background-color: white;
+    background-color: bisque;
     height: 350px;
 }
 
 .static:hover {
     opacity: 0;
+}
+
+.reset-button {
+    flex: 0 0 auto;
+    align-self: center;
+    width: 100px;
+    padding: 16px 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 24px;
 }
