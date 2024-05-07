@@ -1,3 +1,33 @@
+@font-face {
+    font-family: rock-slayer;
+    src: url(fonts/RockSlayers-BW6Lw.otf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    font-family: rock-slayer;
+    font-size: 40px;
+}
+
+.wrapper {
+    margin-top: 75px;
+}
+
+.h1-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+h1 {
+    flex: 0 1 auto;
+    font-family: rock-slayer;
+    font-size: 150px;
+}
+
 .rock-paper-sci {
     display: flex;
     justify-content: space-evenly;
