@@ -1,8 +1,6 @@
 function getComputerChoice() {
     // Get a random choice from three possibilities (0, 1, 2)
     const choice = Math.floor(Math.random() * 3);
-    console.log(choice);
-    // return the random choice
     return choice;
 }
 
@@ -20,48 +18,12 @@ function getHumanChoice() {
 }
 
 function playRound(humanChoice, computerChoice) {
-    // 0 is rock, 1 is paper, 2 is scissor
-    // 1 > 0, 2 > 1, 0 > 2
-    // takes in human and computer choice
-    // CONVERT humanChoice to a number
-    humanChoice = convertToNumber(humanChoice);
-    // COMPARE the two
-    // IF one is 0 and the other is 2, 0 wins
-    if (humanChoice === 0 && computerChoice === 2) {
-        // Add score to human
-        humanScore++;
-        console.log("You chose rock and computer chose scissor. You win");
-        console.log(`human score is ${humanScore}, computer score is ${computerScore}`);
-    } else if (humanChoice === 2 && computerChoice === 0) {
-        computerScore++;
-        console.log("You chose scissor and computer chose rock. Computer win");
-        console.log(`human score is ${humanScore}, computer score is ${computerScore}`);
-        // ELSE IF same choice, nothing
-    } else if (humanChoice === computerChoice) {
-        console.log(`computer chose ${convertNumberToString(computerChoice)}. "it's a tie"`);
-        console.log(`human score is ${humanScore}, computer score is ${computerScore}`);
-    }  else { // ELSE compare the value as usual
-        if (humanScore > computerScore) {
-            humanScore++;
-            console.log(`computer chose ${convertNumberToString(computerChoice)}. You win`);
-            console.log(`human score is ${humanScore}, computer score is ${computerScore}`);
-        } else {
-            computerScore++;
-            console.log(`computer chose ${convertNumberToString(computerChoice)}. Computer wins`);
-            console.log(`human score is ${humanScore}, computer score is ${computerScore}`);
-        }
-    }
+    let humanChoiceNumber = convertToNumber(humanChoice);
+    displayResult(humanChoiceNumber, computerChoice);
 }
 
 function playGame() {
     
-    let games = parseInt(prompt("Enter how many games you want to play", ));
-    for (let i = 1; i <= games; i++) {
-        const humanChoice = getHumanChoice();
-        const computerChoice = getComputerChoice();
-        console.log(`Round ${i}`)
-        playRound(humanChoice, computerChoice);
-    }
     let winner = "";
     if (computerScore > humanScore) {
         console.log(`Computer scores ${computerScore}, You score ${humanScore}, Computer wins`);
@@ -92,7 +54,77 @@ function convertNumberToString(choice) {
     }
 }
 
+function displayResult(humanChoice, computerChoice) {
+    const resultDiv = document.querySelector(".detail");
+    const resultP = document.createElement("p");
+    const humanScoreP = document.querySelector(".human-score");
+    const compScoreP = document.querySelector(".computer-score");
+    const newHumanScoreSpan = document.createElement("span");
+    const newComputerScoreSpan = document.createElement("span");
+    const currentHumanSpan = document.querySelector(".human-score > span")
+    const currentCompSpan = document.querySelector(".computer-score > span")
+    if (humanChoice === 0 && computerChoice === 2) {
+        // Add score to human
+        humanScore++;
+        newHumanScoreSpan.textContent = `${humanScore}`;
+        resultP.textContent = "You chose rock and the computer chose scissor. You win";
+        humanScoreP.replaceChild(newHumanScoreSpan, currentHumanSpan);
+    } else if (humanChoice === 2 && computerChoice === 0) {
+        computerScore++;
+        newComputerScoreSpan.textContent = `${computerScore}`;
+        resultP.textContent = "You chose scissor and the computer chose rock. Computer win";
+        compScoreP.replaceChild(newComputerScoreSpan, currentCompSpan);
+        // ELSE IF same choice, both are winners
+    } else if (humanChoice === computerChoice) {
+        humanScore++;
+        computerScore++;
+        newHumanScoreSpan.textContent = `${humanScore}`;
+        newComputerScoreSpan.textContent = `${computerScore}`;
+        resultP.textContent = `Both you and the computer chose ${humanChoice}. You both win!`;
+        humanScoreP.replaceChild(newHumanScoreSpan, currentHumanSpan);
+        compScoreP.replaceChild(newComputerScoreSpan, currentCompSpan);
+    }  else { // ELSE compare the value as usual
+        if (humanChoice > computerChoice) {
+            humanScore++;
+            newHumanScoreSpan.textContent = `${humanScore}`;
+            resultP.textContent = `You chose ${convertNumberToString(humanChoice)} and the computer chose ${convertNumberToString(computerChoice)}. You win`;
+            humanScoreP.replaceChild(newHumanScoreSpan, currentHumanSpan);
+        } else {
+            computerScore++;
+            newComputerScoreSpan.textContent = `${computerScore}`;
+            resultP.textContent = `You chose ${convertNumberToString(humanChoice)} and the computer chose ${convertNumberToString(computerChoice)}. Computer win`;
+            compScoreP.replaceChild(newComputerScoreSpan, currentCompSpan);
+        }
+    }
+    resultDiv.appendChild(resultP);
+
+}
+
 let humanScore = 0;
 let computerScore = 0;
 
-playGame();
+const rockButton = document.querySelector(".rock-button");
+const paperButton = document.querySelector(".paper-button");
+const sciButton = document.querySelector(".sci-button");
+
+// when user click a button. Playround function is called.
+// human choice is the button's name
+const buttonGroup = document.querySelector(".rock-paper-sci");
+buttonGroup.addEventListener("click", (event) => {
+    let target = event.target;
+    let computerChoice = getComputerChoice();
+    if (target.tagName === "BUTTON") {
+        switch(target.textContent) {
+            case "rock":
+                playRound("rock", computerChoice);
+                break;
+            case "paper":
+                playRound("paper", computerChoice);
+                break;
+            case "scissor":
+                playRound("scissor", computerChoice);
+                break;
+        }
+    }
+});
+
