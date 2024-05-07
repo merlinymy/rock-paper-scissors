@@ -1,6 +1,6 @@
 .rock-paper-sci {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     gap: 20px;
 }
 
@@ -20,4 +20,20 @@
     display: flex;
     justify-content: center;
     gap: 30px;
+}
+
+.img-container {
+    display: flex;
+    flex: 0 0 auto;
+    height: 350px;
+}
+
+.static {
+    position: absolute;
+    background-color: white;
+    height: 350px;
+}
+
+.static:hover {
+    opacity: 0;
 }
