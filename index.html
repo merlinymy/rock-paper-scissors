@@ -8,38 +8,61 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="wrapper">
-        <div class="h1-div">
-            <h1>Rock Paper Scissors</h1>
+    <div class="gameover-wrapper-hidden">
+        <div class="gameover-lose">
+            <h1 class="youdied-h1">Game Over</h1>
+            <button class="reset-button">New Game</button>
         </div>
-        
-        <div class="container">
-            <div class="rock-paper-sci">
-                <div class="img-container">
-                    <img class="rock-button static" src="images/rock.png" alt="floating rock png"></img>
-                    <img class="rock-button" src="images/rock.gif" alt="floating rock gif"></img>
-                </div>
-                <div class="img-container">
-                    <img class="paper-button static" src="images/paper.png" alt="paper png"></img>
-                    <img class="paper-button" src="images/paper.gif" alt="paper gif"></img>
-                </div>
-                <div class="img-container">
-                    
-                    <img class="sci-button static" src="images/scissor.png" alt="scissor gif"></img>
-                    <img class="sci-button" src="images/scissor.gif" alt="scissor gif"></img>
-                </div>
-            </div>
-            <div class="output">
-                <div class="score-sec">
-                    <p class="human-score">Your score: <span>0</span></p>
-                    <p class="computer-score">Computer's score: <span>0</span></p>
-                </div>
-                <div class="detail">
-                </div>
-            </div>
-            <button class="reset-button">reset</button>
+        <div class="gameover-win">
+            <h1 class="victory-h1">VICTORY</h1>
+            <button class="reset-button reset-button-victory">New Game</button>
         </div>
     </div>
+    <div class="flex-container">
+        <div class="wrapper">
+            <div class="h1-div">
+                <h1>Rock Paper Scissors</h1>
+            </div>
+            <div class="container">
+                <div class="rock-paper-sci">
+                    <div class="img-container">
+                        <img class="rock-button static" src="images/rock.png" alt="floating rock png"></img>
+                        <img class="rock-button" src="images/rock.gif" alt="floating rock gif"></img>
+                    </div>
+                    <div class="img-container">
+                        <img class="paper-button static" src="images/paper.png" alt="paper png"></img>
+                        <img class="paper-button" src="images/paper.gif" alt="paper gif"></img>
+                    </div>
+                    <div class="img-container">
+                        
+                        <img class="sci-button static" src="images/scissor.png" alt="scissor gif"></img>
+                        <img class="sci-button" src="images/scissor.gif" alt="scissor gif"></img>
+                    </div>
+                </div>
+                <div class="health-sec">
+                    <div class="player-names">
+                        <p>Player</p>
+                        <p>CPU</p>
+                    </div>
+                    <div class="health-bar-sec">
+                        <div class="player-health-bar health-bar"></div>
+                        <div class="comp-health-bar health-bar"></div>
+                    </div>
+                </div>
+                <div class="output">
+                    <div class="score-sec">
+                        <p class="human-score">Your score: <span>0</span></p>
+                        <p class="computer-score">Computer's score: <span>0</span></p>
+                    </div>
+                    <div class="detail">
+                    </div>
+                </div>
+                <!-- <button class="reset-button">reset</button> -->
+            </div>
+        </div>
+        <div class="footer">Copyright © Merlin Yang</div>
+    </div>
+
     
 </body>
 </html>

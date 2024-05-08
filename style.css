@@ -9,9 +9,24 @@
     font-family: rock-slayer;
 }
 
-body {
+
+.flex-container {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: bisque;
+    height: 100vh;
+}
+
+.footer {
+    flex: 0 1 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
     background-color: burlywood;
-    padding: 0px 150px;
+    padding: 12px;
 }
 
 p {
@@ -20,13 +35,19 @@ p {
 
 .wrapper {
     background-color:bisque;
-    padding-top: 30px;
+    padding: 30px;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .h1-div {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 20px;
 }
 h1 {
     flex: 0 1 auto;
@@ -37,6 +58,7 @@ h1 {
     display: flex;
     justify-content: space-evenly;
     gap: 20px;
+    border: 5px groove darkgoldenrod;
 }
 
 .container {
@@ -44,7 +66,8 @@ h1 {
     flex-direction: column;
     /* align-items: center; */
     justify-content: center;
-    padding: 100px;
+    padding: 0px 100px;
+    gap: 24px;
 }
 
 .output {
@@ -84,4 +107,80 @@ h1 {
     align-items: center;
     border: 2px solid black;
     border-radius: 24px;
+}
+
+.health-sec {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+}
+.player-names {
+    display: flex;
+    justify-content: space-between;
+}
+
+.health-bar-sec {
+    display: flex;
+    justify-content: space-between;
+}
+
+.health-bar {
+    display: flex;
+    border: 3px solid black;
+    width: 450px;
+    height: 50px;
+}
+
+
+.gameover-wrapper-hidden {
+    height: 0vh;
+    opacity: 0;
+    transition: opacity 1s linear;
+}
+
+.gameover-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    opacity: 1;
+    transition: opacity 1s linear;
+    align-items: center;
+}
+
+.gameover-lose,.gameover-win {
+    height: 30vh;
+    width: 100vw;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.hidden {
+    display: none;
+}
+.youdied-h1 .victory-1 {
+    font-size: 200px;
+}
+
+.youdied-h1 {
+    color: red;
+}
+
+.victory-h1 {
+    color: goldenrod;
+}
+
+.health-bar div {
+    flex: 0 0 auto;
+    height: 50px;
+}
+
+.player-health-bar {
+    justify-content: flex-start;
+}
+
+.comp-health-bar {
+    justify-content: flex-end;
 }

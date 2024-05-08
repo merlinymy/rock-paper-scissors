@@ -19,7 +19,44 @@ function getHumanChoice() {
 
 function playRound(humanChoice, computerChoice) {
     let humanChoiceNumber = convertToNumber(humanChoice);
-    displayResult(humanChoiceNumber, computerChoice);
+    let winner = displayResult(humanChoiceNumber, computerChoice);
+    deductHealth(winner);
+
+}
+
+function deductHealth(winner) {
+    // deduct cpu health
+    if (winner === "null") return;
+    if (winner === "player") {
+        cpuHPBar.removeChild(cpuHPNodeList.pop());
+    } else {
+    // deduct player health
+        playerHPBar.removeChild(playerHPNodeList.pop());
+    }
+    checkGameOver();
+}
+
+function checkGameOver() {
+    if (playerHPNodeList.length === 0) {
+        const wrapper = document.querySelector(".gameover-wrapper-hidden");
+        wrapper.setAttribute("class", "gameover-wrapper");
+
+        const winDiv = document.querySelector(".gameover-win");
+        winDiv.setAttribute("class", "hidden");
+        
+        const gamePage = document.querySelector(".flex-container");
+        gamePage.setAttribute("class", "hidden");
+    } else if (cpuHPNodeList.length === 0) {
+        const wrapper = document.querySelector(".gameover-wrapper-hidden");
+        wrapper.setAttribute("class", "gameover-wrapper");
+
+        const loseDiv = document.querySelector(".gameover-lose");
+        loseDiv.setAttribute("class", "hidden");
+
+        const gamePage = document.querySelector(".flex-container");
+        gamePage.setAttribute("class", "hidden");
+    }
+
 }
 
 function playGame() {
@@ -55,57 +92,91 @@ function convertNumberToString(choice) {
 }
 
 function displayResult(humanChoice, computerChoice) {
+    let winner;
     const resultDiv = document.querySelector(".detail");
     const resultP = document.createElement("p");
     const humanScoreP = document.querySelector(".human-score");
     const compScoreP = document.querySelector(".computer-score");
     const newHumanScoreSpan = document.createElement("span");
     const newComputerScoreSpan = document.createElement("span");
-    const currentHumanSpan = document.querySelector(".human-score > span")
-    const currentCompSpan = document.querySelector(".computer-score > span")
+    const currentHumanSpan = document.querySelector(".human-score > span");
+    const currentCompSpan = document.querySelector(".computer-score > span");
     if (humanChoice === 0 && computerChoice === 2) {
         // Add score to human
         humanScore++;
         newHumanScoreSpan.textContent = `${humanScore}`;
         resultP.textContent = "You chose rock and the computer chose scissor. You win";
         humanScoreP.replaceChild(newHumanScoreSpan, currentHumanSpan);
+        winner = "player";
     } else if (humanChoice === 2 && computerChoice === 0) {
         computerScore++;
         newComputerScoreSpan.textContent = `${computerScore}`;
         resultP.textContent = "You chose scissor and the computer chose rock. Computer win";
         compScoreP.replaceChild(newComputerScoreSpan, currentCompSpan);
+        winner = "cpu";
         // ELSE IF same choice, both are winners
     } else if (humanChoice === computerChoice) {
-        humanScore++;
-        computerScore++;
         newHumanScoreSpan.textContent = `${humanScore}`;
         newComputerScoreSpan.textContent = `${computerScore}`;
-        resultP.textContent = `Both you and the computer chose ${humanChoice}. You both win!`;
+        resultP.textContent = `Both you and the computer chose ${convertNumberToString(humanChoice)}. It's a tie`;
         humanScoreP.replaceChild(newHumanScoreSpan, currentHumanSpan);
         compScoreP.replaceChild(newComputerScoreSpan, currentCompSpan);
+        winner = "null";
     }  else { // ELSE compare the value as usual
         if (humanChoice > computerChoice) {
             humanScore++;
             newHumanScoreSpan.textContent = `${humanScore}`;
             resultP.textContent = `You chose ${convertNumberToString(humanChoice)} and the computer chose ${convertNumberToString(computerChoice)}. You win`;
             humanScoreP.replaceChild(newHumanScoreSpan, currentHumanSpan);
+            winner = "player";
         } else {
             computerScore++;
             newComputerScoreSpan.textContent = `${computerScore}`;
             resultP.textContent = `You chose ${convertNumberToString(humanChoice)} and the computer chose ${convertNumberToString(computerChoice)}. Computer win`;
             compScoreP.replaceChild(newComputerScoreSpan, currentCompSpan);
+            winner = "cpu";
         }
     }
     resultDiv.appendChild(resultP);
-
+    return winner;
 }
+
+function startGame() {
+    // populate player and cpu health bar
+    for (let i = 0; i <= 4; i++) {
+        const hpBlock = document.createElement("div");
+        hpBlock.setAttribute("class", `hp-block-${i}`);
+        hpBlock.style.backgroundColor = "#880808";
+        hpBlock.style.height = "50px";
+        hpBlock.style.width = "90px";
+        const hpBlockDup = hpBlock.cloneNode(true);
+        playerHPBar.appendChild(hpBlock);
+        cpuHPBar.appendChild(hpBlockDup);
+        playerHPNodeList = document.querySelectorAll(".player-health-bar div");
+        cpuHPNodeList = document.querySelectorAll(".comp-health-bar div");
+    }
+    playerHPNodeList = [...playerHPNodeList];
+    cpuHPNodeList = [...cpuHPNodeList];
+}
+
 
 let humanScore = 0;
 let computerScore = 0;
 
+let playerHP = 5;
+let cpuHP = 5;
+
 const rockButton = document.querySelector(".rock-button");
 const paperButton = document.querySelector(".paper-button");
 const sciButton = document.querySelector(".sci-button");
+
+const playerHPBar = document.querySelector(".player-health-bar");
+const cpuHPBar = document.querySelector(".comp-health-bar");
+let playerHPNodeList;
+let cpuHPNodeList;
+
+startGame();
+
 
 // when user click a button. Playround function is called.
 // human choice is the button's name
@@ -127,5 +198,15 @@ buttonGroup.addEventListener("click", (event) => {
                 break;
         }
     }
+});
+
+const resetButton = document.querySelector(".reset-button");
+resetButton.addEventListener("click", () => {
+    window.location.reload();
+});
+
+const victoryReset = document.querySelector(".reset-button-victory");
+victoryReset.addEventListener("click", () => {
+    window.location.reload();
 });
 
