@@ -18,10 +18,43 @@ function getHumanChoice() {
 }
 
 function playRound(humanChoice, computerChoice) {
+    roundCount++;
     let humanChoiceNumber = convertToNumber(humanChoice);
-    let winner = displayResult(humanChoiceNumber, computerChoice);
+    let winner = chooseWinner(humanChoiceNumber, computerChoice);
+    displayResult(humanChoiceNumber, computerChoice, winner);
     deductHealth(winner);
+    checkGameOver();
+    addOneToRound();
+}
 
+function addOneToRound() {
+    roundP.textContent = `Round ${roundCount + 1}`;
+}
+
+function chooseWinner(humanChoice, computerChoice) {
+    // choose the winner and update the score
+    // might need refactor
+    let winner;
+    if (humanChoice === 0 && computerChoice === 2) {
+        // Add score to human
+        humanScore++;
+        winner = "player";
+    } else if (humanChoice === 2 && computerChoice === 0) {
+        computerScore++;
+        winner = "cpu";
+        // ELSE IF same choice, both are winners
+    } else if (humanChoice === computerChoice) {
+        winner = "null";
+    }  else { // ELSE compare the value as usual
+        if (humanChoice > computerChoice) {
+            humanScore++;
+            winner = "player";
+        } else {
+            computerScore++;
+            winner = "cpu";
+        }
+    }
+    return winner;
 }
 
 function deductHealth(winner) {
@@ -33,7 +66,6 @@ function deductHealth(winner) {
     // deduct player health
         playerHPBar.removeChild(playerHPNodeList.pop());
     }
-    checkGameOver();
 }
 
 function checkGameOver() {
@@ -91,54 +123,74 @@ function convertNumberToString(choice) {
     }
 }
 
-function displayResult(humanChoice, computerChoice) {
-    let winner;
-    const resultDiv = document.querySelector(".detail");
-    const resultP = document.createElement("p");
-    const humanScoreP = document.querySelector(".human-score");
-    const compScoreP = document.querySelector(".computer-score");
-    const newHumanScoreSpan = document.createElement("span");
-    const newComputerScoreSpan = document.createElement("span");
-    const currentHumanSpan = document.querySelector(".human-score > span");
-    const currentCompSpan = document.querySelector(".computer-score > span");
-    if (humanChoice === 0 && computerChoice === 2) {
-        // Add score to human
-        humanScore++;
-        newHumanScoreSpan.textContent = `${humanScore}`;
-        resultP.textContent = "You chose rock and the computer chose scissor. You win";
-        humanScoreP.replaceChild(newHumanScoreSpan, currentHumanSpan);
-        winner = "player";
-    } else if (humanChoice === 2 && computerChoice === 0) {
-        computerScore++;
-        newComputerScoreSpan.textContent = `${computerScore}`;
-        resultP.textContent = "You chose scissor and the computer chose rock. Computer win";
-        compScoreP.replaceChild(newComputerScoreSpan, currentCompSpan);
-        winner = "cpu";
-        // ELSE IF same choice, both are winners
-    } else if (humanChoice === computerChoice) {
-        newHumanScoreSpan.textContent = `${humanScore}`;
-        newComputerScoreSpan.textContent = `${computerScore}`;
-        resultP.textContent = `Both you and the computer chose ${convertNumberToString(humanChoice)}. It's a tie`;
-        humanScoreP.replaceChild(newHumanScoreSpan, currentHumanSpan);
-        compScoreP.replaceChild(newComputerScoreSpan, currentCompSpan);
-        winner = "null";
-    }  else { // ELSE compare the value as usual
-        if (humanChoice > computerChoice) {
-            humanScore++;
-            newHumanScoreSpan.textContent = `${humanScore}`;
-            resultP.textContent = `You chose ${convertNumberToString(humanChoice)} and the computer chose ${convertNumberToString(computerChoice)}. You win`;
-            humanScoreP.replaceChild(newHumanScoreSpan, currentHumanSpan);
-            winner = "player";
-        } else {
-            computerScore++;
-            newComputerScoreSpan.textContent = `${computerScore}`;
-            resultP.textContent = `You chose ${convertNumberToString(humanChoice)} and the computer chose ${convertNumberToString(computerChoice)}. Computer win`;
-            compScoreP.replaceChild(newComputerScoreSpan, currentCompSpan);
-            winner = "cpu";
-        }
+function displayResult(humanChoice, computerChoice, winner) {
+
+    const outputDiv = document.querySelector(".output");
+    const detailDiv = document.createElement("div");
+    const playerImgDiv = document.createElement("div");
+    const cpuImgDiv = document.createElement("div");
+    const playerImg = document.createElement("img");
+    const cpuImg = document.createElement("img");
+    const roundNumP = document.createElement("p");
+    const roundWinner = document.createElement("p");
+    const roundResultDiv = document.createElement("div");
+
+    switch(humanChoice) {
+        case 0:
+            playerImg.src = "images/rock.gif";
+            playerImg.alt = "A floating rock surrounds by lightings";
+            playerImgDiv.className = "result-img";
+            playerImgDiv.appendChild(playerImg);
+            break;
+        case 1:
+            playerImg.src = "images/paper.gif";
+            playerImg.alt = "four pieces of paper";
+            playerImgDiv.className = "result-img";
+            playerImgDiv.appendChild(playerImg);
+            break;
+        case 2:
+            playerImg.src = "images/scissor.gif";
+            playerImg.alt = "a scissor";
+            playerImgDiv.className = "result-img";
+            playerImgDiv.appendChild(playerImg);
+            break;
     }
-    resultDiv.appendChild(resultP);
-    return winner;
+
+    switch(computerChoice) {
+        case 0:
+            cpuImg.src = "images/rock.gif";
+            cpuImg.alt = "A floating rock surrounds by lightings";
+            cpuImgDiv.className = "result-img";
+            cpuImgDiv.appendChild(cpuImg);
+            break;
+        case 1:
+            cpuImg.src = "images/paper.gif";
+            cpuImg.alt = "four pieces of paper";
+            cpuImgDiv.className = "result-img";
+            cpuImgDiv.appendChild(cpuImg);
+            break;
+        case 2:
+            cpuImg.src = "images/scissor.gif";
+            cpuImg.alt = "a scissor";
+            cpuImgDiv.className = "result-img";
+            cpuImgDiv.appendChild(cpuImg);
+            break;
+    }
+
+    if (winner === "null") {
+        roundWinner.textContent = "Tie";
+    } else {
+        roundWinner.textContent = `${winner} Wins`;
+    }
+
+    detailDiv.className = "detail";
+    roundNumP.textContent = `Round ${roundCount} result`;
+    roundNumP.className = "round-num-p";
+  
+    roundResultDiv.append(roundNumP, roundWinner);
+    roundResultDiv.className = "round-result-div";
+    detailDiv.append(playerImgDiv, roundResultDiv, cpuImgDiv);
+    outputDiv.appendChild(detailDiv);
 }
 
 function startGame() {
@@ -157,6 +209,7 @@ function startGame() {
     }
     playerHPNodeList = [...playerHPNodeList];
     cpuHPNodeList = [...cpuHPNodeList];
+    addOneToRound();
 }
 
 
@@ -166,12 +219,15 @@ let computerScore = 0;
 let playerHP = 5;
 let cpuHP = 5;
 
+let roundCount = 0;
+
 const rockButton = document.querySelector(".rock-button");
 const paperButton = document.querySelector(".paper-button");
 const sciButton = document.querySelector(".sci-button");
 
 const playerHPBar = document.querySelector(".player-health-bar");
 const cpuHPBar = document.querySelector(".comp-health-bar");
+const roundP = document.querySelector(".round-number");
 let playerHPNodeList;
 let cpuHPNodeList;
 

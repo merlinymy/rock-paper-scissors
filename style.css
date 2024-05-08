@@ -12,18 +12,14 @@
 
 .flex-container {
     display: flex;
-    text-align: center;
-    justify-content: center;
+    /* justify-content: space-between; */
     flex-direction: column;
-    background-color: bisque;
     height: 100vh;
 }
 
 .footer {
-    flex: 0 1 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* flex: 1 1 0; */
+    text-align: center;
     margin-top: auto;
     background-color: burlywood;
     padding: 12px;
@@ -39,8 +35,10 @@ p {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    /* align-items: center; */
+    gap: 36px;
+
 }
 
 .h1-div {
@@ -59,31 +57,13 @@ h1 {
     justify-content: space-evenly;
     gap: 20px;
     border: 5px groove darkgoldenrod;
+    border-radius: 20px;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    /* align-items: center; */
-    justify-content: center;
-    padding: 0px 100px;
-    gap: 24px;
-}
-
-.output {
-    text-align: center;
-}
-
-.score-sec {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin: 24px;
-}
 
 .img-container {
     display: flex;
-    flex: 0 0 auto;
+    flex: 0 1 auto;
     height: 350px;
 }
 
@@ -183,4 +163,38 @@ h1 {
 
 .comp-health-bar {
     justify-content: flex-end;
+}
+
+.output {
+    display: flex;
+    flex: 0 1 auto;
+    flex-direction: column-reverse;
+    gap: 12px;
+}
+
+.detail {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: groove darkgoldenrod 3px;
+    border-radius: 15px;
+}
+
+.round-result-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+}
+
+.round-num-p {
+    font-size: 24px;
+}
+
+.result-img {
+    display: flex;
+    height: 150px;
+    width: 150px;
+    flex: 0 1 auto;
 }
